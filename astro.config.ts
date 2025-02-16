@@ -8,12 +8,11 @@ import playformCompress from '@playform/compress';
 import { uvPath } from '@titaniumnetwork-dev/ultraviolet';
 import icon from 'astro-icon';
 import robotsTxt from 'astro-robots-txt';
-import { defineConfig, envField } from 'astro/config';
+import { defineConfig, envField, passthroughImageService } from 'astro/config';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 //we need the buildOpts from here : D
 import { parsedDoc } from './server/config/config.ts';
 const scramjetPath = `${import.meta.dirname}/vendor/scramjet/dist/`
-
 // https://astro.build/config
 export default defineConfig({
     site: Deno.env.get('SITE') || 'https://localhost:8080',
@@ -31,6 +30,9 @@ export default defineConfig({
         }),
     ],
     output: 'static',
+    image: {
+        service: passthroughImageService()
+    },
     env: {
         schema: {
             GAMES_LINK: envField.boolean({
@@ -75,7 +77,7 @@ export default defineConfig({
                         overwrite: false
                     }
                 ],
-            }),
+            }) as any,
         ],
         server: {
             proxy: {
@@ -83,14 +85,14 @@ export default defineConfig({
                     target: 'wss://ruby.rubynetwork.co/wisp/',
                     changeOrigin: true,
                     ws: true,
-                    rewrite: (path) => path.replace(/^\/wisp\//, ''),
+                    rewrite: (path: any) => path.replace(/^\/wisp\//, ''),
                 },
                 '/gms/': {
                     target: 'https://rawcdn.githack.com/ruby-network/ruby-assets/main/',
                     changeOrigin: true,
                     ws: true,
                     secure: false,
-                    rewrite: (path) => path.replace(/^\/gms\//, ''),
+                    rewrite: (path: any) => path.replace(/^\/gms\//, ''),
                 },
             },
         },
