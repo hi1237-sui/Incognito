@@ -33,7 +33,7 @@ jobs:
         run: deno install --allow-scripts
 
       - name: Build Incog
-        run: deno task build
+        run: cp config.example.toml config.toml && deno task build
 
       - name: Compile Windows Binaries
         run: deno task exe:windows
