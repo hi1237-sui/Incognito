@@ -44,10 +44,10 @@ jobs:
           name: incognito-windows
           path: |
             *.exe
-  macos-build:
-    name: Build MacOS
+  maclinux-build:
+    name: Build MacOS & Linux
     if: ${{ github.repository_owner == 'titaniumnetwork-dev' }}
-    runs-on: macos-latest-large
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       id-token: write
@@ -65,12 +65,21 @@ jobs:
       - name: Build Incog
         run: cp config.example.toml config.toml && deno task build
 
-      - name: Compile Windows Binaries
-        run: deno task exe:windows
+      - name: Compile MacOS
+        run: deno task exe:macOS
+
+      - name: Compile MacOS Arm64
+        run: deno task exe:macOSarm
+
+      - name: Compile Linux
+        run: deno task exe:linux
+
+      - name: Compile Linux Arm64
+        run: deno task exe:linuxArm
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: incognito-macOS
+          name: incognito-linux-mac
           path: |
             incognito-*
