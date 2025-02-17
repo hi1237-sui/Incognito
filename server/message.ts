@@ -14,7 +14,6 @@ const messageColors = {
 };
 
 const listeningMessage = (port: number, server: 'fastify' | 'hono') => {
-    console.log(gradient(Object.values(messageColors)).multiline(message));
     console.log(
         `${chalk.hex('#34b874')('Server listening on')} ${
             chalk.white.bold('http://localhost:' + port)

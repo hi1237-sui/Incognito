@@ -26,6 +26,7 @@ if (args.help || (!args.server && !args.config)) {
         ${chalk.whiteBright.bold('--server <full|standalone> - Select the server type (default: full)')}
         ${chalk.whiteBright.bold('--config <path> - The path to a custom config. (default: config.toml)')}
     `)
+    Deno.exit();
 }
 
 if (args.config) {
@@ -33,7 +34,11 @@ if (args.config) {
     args.config = path;
 }
 
-console.clear();
+if (args.server !== "standalone" && args.server !== "full") {
+    console.log(chalk.redBright.bold('Error with options --server\n The only options available are: full or standalone'));
+    Deno.exit();
+}
+
 args.server === "standalone" 
     ? await HonoServer(args.config ?? `${Deno.cwd()}/config.toml`) 
     : await FastifyServer(args.config ?? `${Deno.cwd()}/config.toml`);
