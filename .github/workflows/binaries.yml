@@ -6,9 +6,9 @@ on:
       - v*
   workflow_dispatch:
 
-defaults:
-  run:
-    shell: bash
+    #defaults:
+    #run:
+    #shell: bash
 
 env:
   FORCE_COLOR: true
@@ -39,4 +39,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: incognito-windows
-          path: *.exe
+          path: |
+            *.exe
