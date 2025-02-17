@@ -11,8 +11,9 @@ import robotsTxt from 'astro-robots-txt';
 import { defineConfig, envField, passthroughImageService } from 'astro/config';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 //we need the buildOpts from here : D
-import { parsedDoc } from './server/config/config.ts';
+import { config } from './server/config/config.ts';
 const scramjetPath = `${import.meta.dirname}/vendor/scramjet/dist/`
+const parsedDoc = await config(`${Deno.cwd()}/config.toml`);
 // https://astro.build/config
 export default defineConfig({
     site: Deno.env.get('SITE') || 'https://localhost:8080',
