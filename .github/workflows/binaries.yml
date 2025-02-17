@@ -32,6 +32,9 @@ jobs:
       - name: Install dependencies
         run: deno install --allow-scripts
 
+      - name: Build Incog
+        run: deno task build
+
       - name: Compile Windows Binaries
         run: deno task exe:windows
 
