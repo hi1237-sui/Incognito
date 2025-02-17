@@ -44,3 +44,33 @@ jobs:
           name: incognito-windows
           path: |
             *.exe
+  macos-build:
+    name: Build MacOS
+    if: ${{ github.repository_owner == 'titaniumnetwork-dev' }}
+    runs-on: macos-latest-large
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: 2.1.4
+
+      - name: Install dependencies
+        run: deno install --allow-scripts
+
+      - name: Build Incog
+        run: cp config.example.toml config.toml && deno task build
+
+      - name: Compile Windows Binaries
+        run: deno task exe:windows
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: incognito-macOS
+          path: |
+            incognito-*
