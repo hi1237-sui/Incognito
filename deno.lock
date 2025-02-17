@@ -1,6 +1,10 @@
 {
   "version": "4",
   "specifiers": {
+    "jsr:@hono/hono@*": "4.7.1",
+    "jsr:@std/assert@*": "1.0.11",
+    "jsr:@std/cli@*": "1.0.13",
+    "jsr:@std/internal@^1.0.5": "1.0.5",
     "npm:@astrojs/check@~0.9.4": "0.9.4_typescript@5.7.3",
     "npm:@astrojs/sitemap@^3.2.1": "3.2.1",
     "npm:@astrojs/tailwind@^5.1.3": "5.1.5_astro@5.3.0__typescript@5.7.3__@types+node@22.13.4__vite@6.1.0___@types+node@22.13.4___lightningcss@1.28.2___terser@5.37.0__zod@3.24.2_tailwindcss@3.4.17__postcss@8.5.2_postcss@8.5.2_typescript@5.7.3_@types+node@22.13.4",
@@ -40,6 +44,23 @@
     "npm:vite-plugin-static-copy@^2.2.0": "2.2.0_vite@6.1.0__@types+node@22.13.4__lightningcss@1.28.2__terser@5.37.0_@types+node@22.13.4",
     "npm:wisp-server-node@*": "1.1.7_bufferutil@4.0.9_utf-8-validate@6.0.5",
     "npm:wisp-server-node@^1.1.7": "1.1.7_bufferutil@4.0.9_utf-8-validate@6.0.5"
+  },
+  "jsr": {
+    "@hono/hono@4.7.1": {
+      "integrity": "f75aaf6a026ad05406e60125a70a3d2a77e3b62991f8c4e38c624bdfc1a1dc26"
+    },
+    "@std/assert@1.0.11": {
+      "integrity": "2461ef3c368fe88bc60e186e7744a93112f16fd110022e113a0849e94d1c83c1",
+      "dependencies": [
+        "jsr:@std/internal"
+      ]
+    },
+    "@std/cli@1.0.13": {
+      "integrity": "5db2d95ab2dca3bca9fb6ad3c19908c314e93d6391c8b026725e4892d4615a69"
+    },
+    "@std/internal@1.0.5": {
+      "integrity": "54a546004f769c1ac9e025abd15a76b6671ddc9687e2313b67376125650dc7ba"
+    }
   },
   "npm": {
     "@alloc/quick-lru@5.2.0": {

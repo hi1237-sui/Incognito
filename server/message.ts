@@ -1,18 +1,19 @@
 import gradient from 'npm:gradient-string';
 import chalk from 'chalk';
-const listeningMessage = (port: number, server: 'fastify' | 'hono') => {
-    const message = `
+ const message = `
      ___                       _ _        
     |_ _|_ __   ___ ___  _ __ (_) |_ ___  
     | || '_ \\ / __/ _ \\| '_ \\| | __/ _ \\ 
     | || | | | (_| (_) | | | | | || (_) |
     |___|_| |_|\\___\\___/|_| |_|_|\\__\\___/
     `;
-    const messageColors = {
-        green: '#34b874',
-        white: '#ffffff',
-        blue: '#161923',
-    };
+const messageColors = {
+    green: '#34b874',
+    white: '#ffffff',
+    blue: '#161923',
+};
+
+const listeningMessage = (port: number, server: 'fastify' | 'hono') => {
     console.log(gradient(Object.values(messageColors)).multiline(message));
     console.log(
         `${chalk.hex('#34b874')('Server listening on')} ${
@@ -35,4 +36,4 @@ const listeningMessage = (port: number, server: 'fastify' | 'hono') => {
     );
 };
 
-export { listeningMessage };
+export { listeningMessage, message, messageColors };
