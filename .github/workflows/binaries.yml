@@ -81,11 +81,8 @@ jobs:
             incognito-*
   
 
-  env:
+  test:
     runs-on: ubuntu-latest
-    name: Get tag
-    outputs:
-      tag: ${{ steps.env.outputs.tag }}
     steps:
       - uses: actions/checkout@v4
       - name: Get Tag
@@ -94,19 +91,14 @@ jobs:
           tag=$(echo "${GITHUB_REF}" | sed -n 's/^refs\/tags\/v//p')
           echo tag=${tag} >> $GITHUB_OUTPUT
           echo $GITHUB_OUTPUT
-
-  test:
-    needs: [ env ]
-    runs-on: ubuntu-latest
-    steps:
       - name: T 
-        run: echo ${{ needs.env.env.outputs.tag }} 
+        run: echo ${{ steps.env.output.tag }} 
 
   
   upload-release:
     name: Upload the binary files
     runs-on: ubuntu-latest
-    needs: [windows-build, maclinux-build, env]
+    needs: [windows-build, maclinux-build]
     
     steps:
       - name: Download artifacts for Linux & MacOS
