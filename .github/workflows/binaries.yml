@@ -1,11 +1,6 @@
 name: Add Binaries to current release.
 
 on:
-  workflow_run:
-    workflows:
-      - Release
-    types:
-      - completed
   workflow_dispatch:
 
     #defaults:
@@ -99,7 +94,11 @@ jobs:
           version=$(echo "${GITHUB_REF}" | sed -n 's/^refs\/tags\/v//p')
           echo tag=${version} >> $GITHUB_OUTPUT
 
+  test:
+    needs: [ env ]
+    run: echo ${{ needs.env.outputs.tag }} 
 
+  
   upload-release:
     name: Upload the binary files
     runs-on: ubuntu-latest
