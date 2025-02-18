@@ -20,7 +20,7 @@ jobs:
     name: e
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@4
+      - uses: actions/checkout@v4
 
       - name: E
         run: echo ${{ github.ref_name }}
