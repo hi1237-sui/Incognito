@@ -43,7 +43,7 @@
 
 - Multiple Proxy "Backends":
   - [Ultraviolet](https://github.com/titaniumnetwork-dev/ultraviolet)
-  - [Scramjet (coming soon)](https://github.com/mercuryworkshop/scramjet)
+  - [Scramjet](https://github.com/mercuryworkshop/scramjet)
 
 ---
 
@@ -62,7 +62,7 @@
 - [Ultraviolet](https://github.com/titaniumnetwork-dev/ultraviolet)
 - [Epoxy](https://github.com/mercuryworkshop/epoxy-tls)
 - [Libcurl.js](https://github.com/ading2210/libcurl.js)
-- [Hono](https://github.com/honojs) as a Deno native alternative to fastify. Run with commadn: `deno task start:standalone`
+- [Hono](https://github.com/honojs) as a Deno native alternative to fastify. Run with command: `deno task start --server standalone`
 - [Deno 2.0](https://github.com/denoland/deno)
 - HTML, CSS, and JavaScript (DUH)
 
@@ -70,7 +70,7 @@
 
 ## Roadmap
 
-- [ ] - [Implement Scramjet](https://github.com/mercuryworkshop/scramjet)
+- [x] - [Implement Scramjet](https://github.com/mercuryworkshop/scramjet)
 - [ ] - Remove dependency on Fastify & switch completely to Hono
 - [ ] - General codebase cleanup & remove all of the functions exisiting on `window`
 - [ ] - Games page needs to be reworked due to more games
@@ -84,56 +84,67 @@
 
 ### Terminal
 
-Prerequisites:
+- There are multiple ways to deploy via the terminal.
+    - Using a pre-built binary
+    - Building & Running yourself
 
-- Node & npm
+#### Pre Built Binary:
+
+- Incognito has the ability to run completely within a single executable without you ever having to install or build anything.
+- To do so, check the [Releases Page](https://github.com/titaniumnetwork-dev/incognito/releases) and download the binary associated with your system.
+- To run Incognito:
+```bash
+# This only has to be done once to make it executable
+chmod +x ./incognito-linux
+
+./incognito-linux --server full # Can also be standalone for a smaller server with no wisp server.
+# OR:
+./incognito-linux --server full --config yourconfighere.toml # This flag is completely optional but allows you to use your own config
+
+# To see more about the command line flags:
+./incog-linux OR ./incog-linux --help
+```
+
+#### Build & Run yourself
+
+Prerequisties:
 - Deno 2.0
 - Git
 
-1. Clone the repo:
-
+1. Clone the repo
 ```bash
-git clone https://github.com/titaniumnetwork-dev/incognito && cd incognito
+git clone https://github.com/titaniumnetwork-dev/incognito.git
 ```
 
-2. Install all of the dependencies:
-
+2. `cd` into the project
 ```bash
-deno install --allow-scripts # This is here for sharp and other dependencies like bufferutil
+cd incognito
 ```
 
-3. Create a config.toml file
+3. Install the required deps:
+```bash
+deno install --allow-scripts
+```
 
+4. Create a config.toml file
 ```bash
 cp config.example.toml config.toml
 ```
 
-4. Modify the config.toml file to you liking (docs [here](#config))
+5. Edit the config file to your likinh
 
-```
-nano config.toml
-```
-
-5. Build the frontend:
-
+6. Build the frontend:
 ```bash
 deno task build
 ```
 
-6. Start the server
-
+7. Start the server!
 ```bash
-deno task start
-```
+deno task start --server full # Can also be standalone for a smaller server with no wisp server.
 
-> [!NOTE]
-> You can run `deno task start:standalone` to use Hono over Fastify, *recommended if you're using an external Wisp server like [Epoxy Server](https://github.com/mercuryworkshop/epoxy-tls)*
->
-> You can run `deno task bstart` to build and start the server at the same time
->
-> You can run `deno task bstart:standalone` to do the same as above but use the Hono server instead
->
-> The Hono server has no built-in Wisp server so you'll have to provide one.
+# For help with the cli:
+deno task start --help OR deno task start
+```
 
 ---
 
