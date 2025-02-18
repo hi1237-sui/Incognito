@@ -85,21 +85,22 @@ jobs:
     runs-on: ubuntu-latest
     name: Get tag
     outputs:
-      tag: ${{ steps.tag.outputs.tag }}
+      tag: ${{ steps.env.outputs.tag }}
     steps:
       - uses: actions/checkout@v4
       - name: Get Tag
-        id: tag
+        id: env
         run: |
-          version=$(echo "${GITHUB_REF}" | sed -n 's/^refs\/tags\/v//p')
-          echo tag=${version} >> $GITHUB_OUTPUT
+          tag=$(echo "${GITHUB_REF}" | sed -n 's/^refs\/tags\/v//p')
+          echo tag=${tag} >> $GITHUB_OUTPUT
+          echo $GITHUB_OUTPUT
 
   test:
     needs: [ env ]
     runs-on: ubuntu-latest
     steps:
       - name: T 
-        run: echo ${{ needs.env.tag.outputs.tag }} 
+        run: echo ${{ needs.env.env.outputs.tag }} 
 
   
   upload-release:
