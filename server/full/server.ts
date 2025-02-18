@@ -7,10 +7,12 @@ import Fastify from 'fastify';
 import { sFactory } from './serverFactory.ts';
 import { listeningMessage } from "../message.ts";
 import { config } from "../config/config.ts";
+import { fromFileUrl } from "jsr:@std/path";
 
 const startServer = async (configPath: string) => {
     const parsedDoc = await config(configPath);
     const serverFactory = await sFactory(configPath);
+    const distPath = fromFileUrl(new URL('../../dist', import.meta.url));
     const app = Fastify({ logger: false, serverFactory: serverFactory });
 
     await app.register(fastifyCookie, {
@@ -23,7 +25,9 @@ const startServer = async (configPath: string) => {
 
     if (parsedDoc.seo.enabled && !parsedDoc.seo.both || !parsedDoc.seo.enabled) {
         await app.register(fastifyStatic, {
-            root: `${Deno.cwd()}/dist`
+            root: distPath,
+            etag: false,
+            lastModified: false
         });
     } 
     else {

@@ -6,6 +6,7 @@ import { message, messageColors } from "./message.ts";
 import { parseArgs } from "jsr:@std/cli";
 import { startServer as HonoServer } from './standalone/standalone.ts';
 import { startServer as FastifyServer } from './full/server.ts';
+import { fromFileUrl } from 'jsr:@std/path';
 
 interface CLIArgs {
     help: boolean;
@@ -18,6 +19,7 @@ const args = parseArgs(Deno.args, {
     string: ["server", "config"]
 }) as CLIArgs;
 
+console.log(fromFileUrl(new URL('../dist', import.meta.url)));
 console.log(gradient(Object.values(messageColors)).multiline(message));
 console.log(chalk.hex('#34b874')('Welcome to the Incognito CLI!'));
 if (args.help || (!args.server && !args.config)) {

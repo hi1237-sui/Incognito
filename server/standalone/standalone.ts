@@ -3,6 +3,7 @@ import { serveStatic } from 'jsr:@hono/hono/deno';
 import { compress } from 'jsr:@hono/hono/compress';
 import { listeningMessage } from '../message.ts';
 import { config } from '../config/config.ts';
+import { fromFileUrl } from 'jsr:@std/path';
 
 const startServer = async (configPath: string) => {
     const parsedDoc = await config(configPath);
@@ -13,7 +14,7 @@ const startServer = async (configPath: string) => {
     }));
 
     if (parsedDoc.seo.enabled && !parsedDoc.seo.both || !parsedDoc.seo.enabled) {
-        app.use('/*', serveStatic({ root: `${Deno.cwd()}/dist` }));
+        app.use('/*', serveStatic({ root: fromFileUrl(new URL('../../dist', import.meta.url)) }));
     }
 
     if (parsedDoc.seo.enabled && parsedDoc.seo.both) {
