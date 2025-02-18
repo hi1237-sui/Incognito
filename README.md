@@ -26,7 +26,6 @@
 
 ## NOTE:
 
-- For Cyclic users this will unfortunatley _not_ work due to Cyclic supporting very little languages
 - This will **NOT** deploy on Github Pages, Netlify, Vercel, Gitlab Pages or any other _static_ host
 - This will **NOT** work on Render
 
