@@ -88,7 +88,7 @@ jobs:
       - name: Get Tag
         id: env
         run: |
-          tag=$(echo "${GITHUB_REF}" | sed -n 's/^refs\/tags\/v//p')
+          tag=$(git describe --tags --abbrev=0)
           echo tag=${tag} >> $GITHUB_OUTPUT
           echo $GITHUB_OUTPUT
       - name: T 
