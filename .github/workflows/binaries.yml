@@ -16,14 +16,6 @@ env:
   FORCE_COLOR: true
 
 jobs:
-  test:
-    name: e
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: E
-        run: echo ${{ github.ref_name }}
   windows-build:
     name: Build Windows
     runs-on: windows-latest
@@ -99,6 +91,15 @@ jobs:
     needs: [windows-build, maclinux-build]
     
     steps:
+      - name: Set ENV
+        uses: actions/checkout@v4
+        id: vars
+        outputs:
+          tag: ${{ steps.vars.outputs.tag }}
+        run: |
+          version=$(echo "${GITHUB_REF}" | sed -n 's/^refs\/tags\/v//p')
+          echo tag=${version} >> $GITHUB_OUTPUT
+
       - name: Download artifacts for Linux & MacOS
         uses: actions/download-artifact@v4
         with:
@@ -118,6 +119,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: incognito-windows/*.exe
-          tag: ${{ github.ref }}
+          tag: ${{ steps.vars.outputs.tag }}
           overwrite: true
           file_glob: true
