@@ -91,8 +91,9 @@ jobs:
     needs: [windows-build, maclinux-build]
     
     steps:
-      - name: Set ENV
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+
+      - name: ENV
         id: vars
         outputs:
           tag: ${{ steps.vars.outputs.tag }}
