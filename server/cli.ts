@@ -19,7 +19,6 @@ const args = parseArgs(Deno.args, {
     string: ["server", "config"]
 }) as CLIArgs;
 
-console.log(fromFileUrl(new URL('../dist', import.meta.url)));
 console.log(gradient(Object.values(messageColors)).multiline(message));
 console.log(chalk.hex('#34b874')('Welcome to the Incognito CLI!'));
 if (args.help || (!args.server && !args.config)) {
@@ -42,5 +41,5 @@ if (args.server !== "standalone" && args.server !== "full") {
 }
 
 args.server === "standalone" 
-    ? await HonoServer(args.config ?? `${Deno.cwd()}/config.toml`) 
-    : await FastifyServer(args.config ?? `${Deno.cwd()}/config.toml`);
+    ? await HonoServer(args.config ?? fromFileUrl(new URL('../config.toml', import.meta.url))) 
+    : await FastifyServer(args.config ?? fromFileUrl(new URL('../config.toml', import.meta.url)));
