@@ -91,7 +91,7 @@
 #### Pre Built Binary:
 
 - Incognito has the ability to run completely within a single executable without you ever having to install or build anything.
-- To do so, check the [Releases Page](https://github.com/titaniumnetwork-dev/incognito/releases) and download the binary associated with your system.
+- To do so, check the [Latest Release](https://github.com/titaniumnetwork-dev/incognito/releases/full) and download the binary associated with your system.
 - To run Incognito:
 ```bash
 # This only has to be done once to make it executable
