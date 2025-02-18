@@ -96,5 +96,11 @@ jobs:
         with:
           path: .
 
-      - name: LS artifacts
-        run: ls -R
+      - name: Upload Linux & MacOS
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: incognito-linux-mac/*
+          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true
