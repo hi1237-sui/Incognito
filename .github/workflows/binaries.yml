@@ -96,7 +96,7 @@ jobs:
 
   test:
     needs: [ env ]
-    uses: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: T 
         run: echo ${{ needs.env.outputs.tag }} 
