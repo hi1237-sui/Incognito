@@ -104,3 +104,12 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true
+
+      - name: Upload Windows binary
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: incognito-windows/*.exe
+          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true
