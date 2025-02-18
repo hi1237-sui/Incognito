@@ -99,7 +99,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: T 
-        run: echo ${{ needs.env.outputs.tag }} 
+        run: echo ${{ needs.env.tag.outputs.tag }} 
 
   
   upload-release:
