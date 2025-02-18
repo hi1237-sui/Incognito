@@ -1,9 +1,11 @@
 name: Add Binaries to current release.
 
 on:
-  push:
-    tags:
-      - v*
+  workflow_run:
+    workflows:
+      - Release
+    types:
+      - completed
   workflow_dispatch:
 
     #defaults:
@@ -16,7 +18,6 @@ env:
 jobs:
   windows-build:
     name: Build Windows
-    if: ${{ github.repository_owner == 'titaniumnetwork-dev' }}
     runs-on: windows-latest
     permissions:
       contents: write
