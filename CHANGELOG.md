@@ -52,3 +52,6 @@
 
 # 1.1.5
 - Fixes the games (mostly)
+
+# 1.1.6
+- Add the ability to run Incog from a prebuilt file
