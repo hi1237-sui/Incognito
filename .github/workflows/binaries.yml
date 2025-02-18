@@ -95,8 +95,6 @@ jobs:
 
       - name: ENV
         id: vars
-        outputs:
-          tag: ${{ steps.vars.outputs.tag }}
         run: |
           version=$(echo "${GITHUB_REF}" | sed -n 's/^refs\/tags\/v//p')
           echo tag=${version} >> $GITHUB_OUTPUT
