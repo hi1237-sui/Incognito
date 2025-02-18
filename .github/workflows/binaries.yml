@@ -96,7 +96,10 @@ jobs:
 
   test:
     needs: [ env ]
-    run: echo ${{ needs.env.outputs.tag }} 
+    uses: ubuntu-latest
+    steps:
+      - name: T 
+        run: echo ${{ needs.env.outputs.tag }} 
 
   
   upload-release:
