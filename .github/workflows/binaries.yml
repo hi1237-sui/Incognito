@@ -81,5 +81,20 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: incognito-linux-mac
+          retention-days: 1
           path: |
             incognito-*
+
+  upload-release:
+    name: Upload the binary files
+    runs-on: ubuntu-latest
+    needs: [windows-build, maclinux-build]
+    
+    steps:
+      - name: Download artifacts for Linux & MacOS
+        uses: actions/download-artifacts@v4
+        with:
+          path: .
+
+      - name: LS artifacts
+        run: ls -R
