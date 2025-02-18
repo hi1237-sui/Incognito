@@ -86,7 +86,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: E
-        run: git tags
+        run: git tag
       - name: Get Tag
         id: env
         run: |
