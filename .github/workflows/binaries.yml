@@ -95,9 +95,7 @@ jobs:
         run: |
           tag=$(git describe --tags --abbrev=0)
           echo tag=${tag} >> $GITHUB_OUTPUT
-          echo $GITHUB_OUTPUT
-      - name: T 
-        run: echo ${{ steps.env.output.tag }} 
+          echo $tag
 
   
   upload-release:
