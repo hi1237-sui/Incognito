@@ -84,7 +84,7 @@ jobs:
   env:
     runs-on: ubuntu-latest
     outputs:
-      tag: ${{ steps.id.outputs.tag }}
+      tag: ${{ steps.env.outputs.tag }}
     steps:
       - uses: actions/checkout@v4
         with:
