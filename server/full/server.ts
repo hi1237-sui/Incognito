@@ -9,7 +9,7 @@ import { listeningMessage } from "../message.ts";
 import { config } from "../config/config.ts";
 import { fromFileUrl } from "jsr:@std/path";
 
-const startServer = async (configPath: string) => {
+const startServer = async (configPath: string, seo?: boolean) => {
     const parsedDoc = await config(configPath);
     const serverFactory = await sFactory(configPath);
     const distPath = fromFileUrl(new URL('../../dist', import.meta.url));
@@ -23,20 +23,17 @@ const startServer = async (configPath: string) => {
         encodings: ['br', 'gzip', 'deflate']
     });
 
-    if (parsedDoc.seo.enabled && !parsedDoc.seo.both || !parsedDoc.seo.enabled) {
+    await app.register(fastifyStatic, {
+        root: `${distPath}/noseo`,
+        etag: false,
+        lastModified: false
+    });
+    if (seo || parsedDoc.seo.enabled) {
         await app.register(fastifyStatic, {
-            root: distPath,
-            etag: false,
-            lastModified: false
-        });
-    } 
-    else {
-        await app.register(fastifyStatic, {
-            root: `${Deno.cwd()}/dist/noseo`,
-        });
-        await app.register(fastifyStatic, {
-            root: `${Deno.cwd()}/dist/seo`,
+            root: `${distPath}/seo`,
             constraints: { host: new URL(Deno.env.get('DOMAIN') || parsedDoc.seo.domain).host },
+            etag: false,
+            lastModified: false,
             decorateReply: false
         })
     }

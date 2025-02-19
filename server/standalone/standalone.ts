@@ -5,28 +5,23 @@ import { listeningMessage } from '../message.ts';
 import { config } from '../config/config.ts';
 import { fromFileUrl } from 'jsr:@std/path';
 
-const startServer = async (configPath: string) => {
+const startServer = async (configPath: string, seo?: boolean) => {
     const parsedDoc = await config(configPath);
     const app = new Hono();
+    const distPath = fromFileUrl(new URL('../../dist', import.meta.url));
 
     app.use(compress({
         encoding: 'gzip',
     }));
 
-    if (parsedDoc.seo.enabled && !parsedDoc.seo.both || !parsedDoc.seo.enabled) {
-        app.use('/*', serveStatic({ root: fromFileUrl(new URL('../../dist', import.meta.url)) }));
-    }
-
-    if (parsedDoc.seo.enabled && parsedDoc.seo.both) {
-        app.use('/*', (ctx, next) => {
-            if (new URL(ctx.req.url).host === new URL(Deno.env.get('DOMAIN') || parsedDoc.seo.domain).host) {
-                return serveStatic({ root: `${Deno.cwd()}/dist/seo` })(ctx, next);
-            }
-            else {
-                return serveStatic({ root: `${Deno.cwd()}/dist/noseo` })(ctx, next);
-            }
-        });
-    }
+    app.use('/*', (ctx, next) => {
+        if (new URL(ctx.req.url).host === new URL(Deno.env.get('DOMAIN') || parsedDoc.seo.domain).host && seo || parsedDoc.seo.enabled) {
+            return serveStatic({ root: `${distPath}/seo` })(ctx, next);
+        }
+        else {
+            return serveStatic({ root: `${distPath}/noseo` })(ctx, next);
+        }
+    });
 
     Deno.serve({
         hostname: '0.0.0.0',

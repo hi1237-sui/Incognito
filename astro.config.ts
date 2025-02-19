@@ -44,7 +44,7 @@ export default defineConfig({
             SEO: envField.boolean({
                 context: 'client',
                 access: 'public',
-                default: Boolean(Deno.env.get('SEO')) || parsedDoc.seo.enabled
+                default: Boolean(Deno.env.get('SEO'))
             })
         },
     },

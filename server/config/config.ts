@@ -10,7 +10,6 @@ interface Data {
     };
     seo: {
         enabled: boolean;
-        both: boolean;
         domain: string;
     };
 }
@@ -36,9 +35,6 @@ const config = async (configFile: string): Promise<Data> => {
     }
     if (typeof parsedDoc.seo.enabled !== "boolean") {
         throw new Error(`Invalid type for "seo.enabled"! It should be an boolean (true/false)`);
-    }
-    if (typeof parsedDoc.seo.both !== "boolean") {
-        throw new Error(`Invalid type for "seo.both"! It should be an boolean (true/false)`);
     }
     if (typeof parsedDoc.seo.domain !== "string") {
         throw new Error(`Invalid type for "seo.domain"! It should be an string`);

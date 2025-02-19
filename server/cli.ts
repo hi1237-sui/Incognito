@@ -12,10 +12,11 @@ interface CLIArgs {
     help: boolean;
     server?: "full" | "standalone";
     config?: string;
+    seo?: boolean;
 }
 
 const args = parseArgs(Deno.args, {
-    boolean: ["help"],
+    boolean: ["help", "seo"],
     string: ["server", "config"]
 }) as CLIArgs;
 
@@ -26,6 +27,7 @@ if (args.help || (!args.server && !args.config)) {
         ${chalk.whiteBright.bold('--help - Trigger this menu')}
         ${chalk.whiteBright.bold('--server <full|standalone> - Select the server type (default: full)')}
         ${chalk.whiteBright.bold('--config <path> - The path to a custom config. (default: config.toml)')}
+        ${chalk.whiteBright.bold('--seo - Enable SEO website regardless of the config file (default: false)')}
     `)
     Deno.exit();
 }
@@ -41,5 +43,5 @@ if (args.server !== "standalone" && args.server !== "full") {
 }
 
 args.server === "standalone" 
-    ? await HonoServer(args.config ?? fromFileUrl(new URL('../config.toml', import.meta.url))) 
-    : await FastifyServer(args.config ?? fromFileUrl(new URL('../config.toml', import.meta.url)));
+    ? await HonoServer(args.config ?? fromFileUrl(new URL('../config.toml', import.meta.url)), args.seo) 
+    : await FastifyServer(args.config ?? fromFileUrl(new URL('../config.toml', import.meta.url)), args.seo);
