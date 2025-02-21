@@ -103,7 +103,9 @@
     ```bash
     ./incognito-linux --server full
     ```
-- To see all of the CLI options & usage see: [cli](#cli)
+
+[!NOTE]
+> - To see all of the CLI options & usage see: [cli](#cli)
 
 #### Docker
 
@@ -133,5 +135,7 @@ docker compose up
 ```
 - That should fire Incognito up and you should be good!
 
-- To see all of the CLI options & usage see: [cli](#cli)
-- To see all of the `config.toml` options see: [config](#config)
+[!NOTE]
+> - To see all of the CLI options & usage see: [cli](#cli)
+>
+> - To see all of the `config.toml` options see: [config](#config)
