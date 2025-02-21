@@ -1,11 +1,11 @@
 name: Add Binaries to current release.
 
 on:
-  workflow_run:
-    workflows:
-      - Release
-    types:
-      - completed
+  #workflow_run:
+  #  workflows:
+  #    - Release
+  #  types:
+  #    - completed
   workflow_dispatch:
 
     #defaults:

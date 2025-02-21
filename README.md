@@ -117,7 +117,7 @@
 
 - Docker is the second easiest way to run Incognito.
 - Currently, Docker images are built by [@motortruck1221](https://github.com/motortruck1221) manually per version update.
-    - They can be located here: [https://hub.docker.com/repository/docker/motortruck1221/incognito](https://hub.docker.com/repository/docker/motortruck1221/incognito)
+    - They can be located here: [https://hub.docker.com/r/motortruck1221/incognito](https://hub.docker.com/r/motortruck1221/incognito)
 - This enables:
     - Automatic updates
     - Easier deployment then building yourself.
