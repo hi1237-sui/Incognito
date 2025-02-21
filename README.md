@@ -206,3 +206,27 @@ deno task start --server full
 - `--seo` - Currently the default is to only use the build with no seo enabled. This flag enables the seo build.
     - Domain must be set in the [config](#config)
     - Overrides the enabled option in the [config](#config)
+
+---
+
+## Config
+
+- Incognito currently uses a config file in the toml format.
+- An example of this file can be found [here](https://github.com/titaniumnetwork-dev/incognito/blob/main/config.example.toml)
+
+##### Build Opts
+| Type | Default | Description                        | Can be overwritten by ENV var |
+|------|---------|------------------------------------|-------------------------------|
+| games | `true` | Disables or enables the games page | - [ ] - No |
+
+##### Server
+| Type | Default | Description                                                                                                     | Can be overwritten by ENV var |
+|------|---------|-----------------------------------------------------------------------------------------------------------------|------------------------------|
+| port | `8000`  | Change the default port. *Note: the environment var `PORT` takes precedence*                                    | - [x] - Yes |
+| wisp | `true`  | Disable or enables the in built wisp server. *Note: when using the Hono server there is no built-in wisp server | - [ ] - No |
+
+##### SEO
+| Type   | Default                 | Description                                                              | Can be overwritten by ENV var |
+---------|-------------------------|--------------------------------------------------------------------------|-------------------------------|
+| SEO    | `false`                 | Change whether or not to enabled SEO                                     | - [x] - Yes - `SEO` (as well via a CLI flag `--seo` |
+| DOMAIN | `http://localhost:8000` | When the `both` option is enable, only show the SEO stuff on this domain | - [x] - Yes - `DOMAIN`        |
