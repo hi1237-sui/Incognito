@@ -105,6 +105,12 @@
     ```
 
 > [!NOTE]
+> - You MAY have to make the binary executable on certain systems.
+>    - For example in Linux:
+>    ```bash
+>    chmod +x ./incognito-linux
+>    ```
+>
 > - To see all of the CLI options & usage see: [cli](#cli)
 
 #### Docker
