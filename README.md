@@ -82,191 +82,25 @@
 
 ## Deployment
 
-### Terminal
+- Incognito is the easiest proxy to deploy!
+- Currently, there are 3 ways to deploy Incognito
+    - [Pre-built binaries](#Pre-built-binaries)
+    - [Docker]()
+    - [Building and running yourself]()
 
-- There are multiple ways to deploy via the terminal.
-    - Using a pre-built binary
-    - Building & Running yourself
+#### Pre-built Binaries
 
-#### Pre Built Binary:
+- When a new version is pushed, our CI automagically builds & uploads pre-built binaries to the release.
+- This enables you to: 
+    - A. Not install any extra runtime or install any new packages
+    - B. Updates are easy and quick. Just download the new binary!
 
-- Incognito has the ability to run completely within a single executable without you ever having to install or build anything.
-- To do so, check the [Latest Release](https://github.com/titaniumnetwork-dev/incognito/releases/latest) and download the binary associated with your system.
-- To run Incognito:
-```bash
-# This only has to be done once to make it executable
-chmod +x ./incognito-linux
+###### Usage:
 
-./incognito-linux --server full # Can also be standalone for a smaller server with no wisp server.
-# OR:
-./incognito-linux --server full --config yourconfighere.toml # This flag is completely optional but allows you to use your own config
-
-# To see more about the command line flags:
-./incog-linux OR ./incog-linux --help
-```
-
-#### Build & Run yourself
-
-Prerequisties:
-- Deno 2.0
-- Git
-
-1. Clone the repo
-```bash
-git clone https://github.com/titaniumnetwork-dev/incognito.git
-```
-
-2. `cd` into the project
-```bash
-cd incognito
-```
-
-3. Install the required deps:
-```bash
-deno install --allow-scripts
-```
-
-4. Create a config.toml file
-```bash
-cp config.example.toml config.toml
-```
-
-5. Edit the config file to your likinh
-
-6. Build the frontend:
-```bash
-deno task build
-```
-
-7. Start the server!
-```bash
-deno task start --server full # Can also be standalone for a smaller server with no wisp server.
-
-# For help with the cli:
-deno task start --help OR deno task start
-```
-
----
-
-### Games
-
-- By default, games are reverse proxied by the server
-  - Game assets are located [here](https://github.com/ruby-network/ruby-assets)
-- To turn off Games, and access to them see [#config](#config)
-
-### Docker
-
-- There are two ways to deploy with docker:
-  - [Normal docker](#normal-docker)
-  - [Docker Compose](#docker-compose)
-
-#### Normal Docker
-
-Prerequisites:
-
-- Git
-- Docker
-
-1. Clone the repo (skip if using prebuilt image):
-
-```bash
-git clone https://github.com/titaniumnetwork/incognito && cd incognito
-```
-
-2. Create an config.toml file (if using prebuilt image, copy the example from the repo):
-
-```bash
-cp config.example.toml config.toml
-```
-
-3. Modify the .env file to your liking (docs [here](#config))
-
-```bash
-nano config.toml
-```
-
-4. Build the docker image (skip if using prebuilt):
-
-```bash
-docker build -t incog:latest
-```
-
-5. Run the docker images:
-
-   - Prebuilt:
-   ```bash
-   docker run --volume ./config.toml:/app/config.toml motortruck1221/incognito:latest
-   ```
-   - Image you built yourself:
-   ```bash
-   docker run --volume ./config.toml:/app/config.toml incog:latest
-   ```
-
-#### Docker Compose
-
-Prerequisites:
-
-- Git
-- Docker w/compose
-
-1. Clone the repo (skip if using prebuilt image):
-
-```bash
-git clone https://github.com/titaniumnetwork-dev/incognito
-```
-
-2. Create an config.toml file (if using prebuilt image, copy the example from the repo):
-
-```bash
-cp config.example.toml config.toml
-```
-
-3. Modify the config.toml file to your liking (docs on that [here](#config)]
-
-```bash
-nano config.toml
-```
-
-4. Build the docker image (skip if using prebuilt):
-
-```bash
-docker compose -f ./docker-compose.build.yml build
-```
-
-5. Run the docker image:
-
-   - Prebuilt:
-   ```bash
-   docker compose up
-   ```
-   - Image you built yourself:
-   ```bash
-   docker compose -f ./docker-compose.build.yml up
-   ```
-
----
-
-## Config
-
-- The config is rather simple and quick, it's done in TOML and there are only two object:
-- `buildOpts` & `server` below there will be 2 tables showcasing the possible values.
-> [!NOTE]
-> As it says, `buildOpts` will only apply when *building* the website. This can be changed in the docker-compose files.
-
-##### Build Opts
-| Type | Default | Description                        | Can be overwritten by ENV var |
-|------|---------|------------------------------------|-------------------------------|
-| games | `true` | Disables or enables the games page | - [ ] - No |
-
-##### Server
-| Type | Default | Description                                                                                                     | Can be overwritten by ENV var |
-|------|---------|-----------------------------------------------------------------------------------------------------------------|------------------------------|
-| port | `8000`  | Change the default port. *Note: the environment var `PORT` takes precedence*                                    | - [x] - Yes |
-| wisp | `true`  | Disable or enables the in built wisp server. *Note: when using the Hono server there is no built-in wisp server | - [ ] - No |
-
-##### SEO
-| Type   | Default                 | Description                                                              | Can be overwritten by ENV var | Is used at build time |
----------|-------------------------|--------------------------------------------------------------------------|-------------------------------|-----------------------|
-| SEO    | `false`                 | Change whether or not to enabled SEO                                     | - [x] - Yes - `SEO`           | - [x] - Yes           |
-| DOMAIN | `http://localhost:8000` | When the `both` option is enable, only show the SEO stuff on this domain | - [x] - Yes - `DOMAIN`        | - [ ] - No            |
-| BOTH   | `false`                 | Works in tandem with option `DOMAIN`                                     | - [x] - Yes - `BOTH`          | - [ ] - No            |
+- First grab the current binary for your system & OS [here](https://github.com/titaniumnetwork-dev/incognito)
+- Then simply run the binary!
+    - For example using linux:
+    ```bash
+    ./incognito-linux --server full
+    ```
+- To see all of the CLI options & usage see: [cli](#cli)
