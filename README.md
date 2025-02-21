@@ -97,10 +97,41 @@
 
 ###### Usage:
 
-- First grab the current binary for your system & OS [here](https://github.com/titaniumnetwork-dev/incognito)
+- First grab the current binary for your system & OS [here](https://github.com/titaniumnetwork-dev/incognito/releases/latest)
 - Then simply run the binary!
     - For example using linux:
     ```bash
     ./incognito-linux --server full
     ```
 - To see all of the CLI options & usage see: [cli](#cli)
+
+#### Docker
+
+- Docker is the second easiest way to run Incognito.
+- Currently, Docker images are built by [@motortruck1221](https://github.com/motortruck1221) manually per version update.
+    - They can be located here: [https://hub.docker.com/repository/docker/motortruck1221/incognito](https://hub.docker.com/repository/docker/motortruck1221/incognito)
+- This enables:
+    - Automatic updates
+    - Easier deployment then building yourself.
+
+###### Usage:
+
+- The Docker builds currently have 2 tags:
+    - Latest
+    - Or a pinned version of the build (eg: 1.1.7)
+- Currently, only Docker compose is supported. Docker without compose *can be used* but it's highly discouraged.
+
+- Prerequisites:
+    - Docker w/compose
+
+- First, create a `config.toml` file and copy the [example config from the repo](https://github.com/titaniumnetwork-dev/incognito/blob/main/config.example.toml)
+- Then, copy and paste the contents of the [docker-compose.yml file](https://github.com/titaniumnetwork-dev/incognito/blob/main/docker-compose.yml) into your own docker-compose.yml file
+- After that, edit the `docker-compose.yml` file to your liking.
+- And finally:
+```bash
+docker compose up
+```
+- That should fire Incognito up and you should be good!
+
+- To see all of the CLI options & usage see: [cli](#cli)
+- To see all of the `config.toml` options see: [config](#config)
