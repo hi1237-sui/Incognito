@@ -187,3 +187,22 @@ deno task start --server full
 
 > [!NOTE]
 > - To see all of the CLI options & usage see: [cli](#cli)
+
+---
+
+## CLI
+
+- Incognito has a built in CLI for starting and running
+- Currently, there are only 4 flags.
+
+- `--help` - This triggers the help prompt even when other flags are passed.
+- `--server [full|standalone]` - Choose between the full or standalone server. This option is ***required*** otherwise, it will just show the help prompt.
+    - Full - Uses Fastify has a built in Wisp server (via [wisp server node](https://github.com/mercuryworkshop/wisp-server-node)) *(recommended for self hosters)*
+    - Standalone - Uses Hono as the server with no built in Wisp server. *(recommended for a huge production instance with an external wisp server)*
+    - These are the only two options. Anything else passed here WILL throw an error.
+- `--config <config path>` - Use a config located somewhere else.
+    - Useful when using the [Pre-built binaries](#pre-built-binaries)
+    - The path can either be absolute or relative.
+- `--seo` - Currently the default is to only use the build with no seo enabled. This flag enables the seo build.
+    - Domain must be set in the [config](#config)
+    - Overrides the enabled option in the [config](#config)
