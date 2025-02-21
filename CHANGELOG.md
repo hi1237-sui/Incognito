@@ -55,3 +55,11 @@
 
 # 1.1.6
 - Add the ability to run Incog from a prebuilt file
+
+# 1.1.7
+- Builds both the SEO & non SEO versions of the website for easier deployment
+- Adds a `--seo` CLI flag which can enable the SEO build without the config.toml file
+- CLI is now easier to use & interact with
+- Change and cleanup docs
+- Docker command cleanup to reflect new changes
+- docker-compose.build.yml no longer exists.
