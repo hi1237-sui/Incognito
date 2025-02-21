@@ -121,6 +121,7 @@
 - This enables:
     - Automatic updates
     - Easier deployment then building yourself.
+    - No dependencies besides docker w/compose
 
 ###### Usage:
 
@@ -145,3 +146,44 @@ docker compose up
 > - To see all of the CLI options & usage see: [cli](#cli)
 >
 > - To see all of the `config.toml` options see: [config](#config)
+
+#### Building & Running yourself
+
+- This is the last way to run Incognito
+
+###### Usage:
+
+- Prerequisites:
+    - Git
+    - Deno 2.1.4 or newer
+    - Node.js & NPM
+
+1. Clone the repo
+```bash
+git clone https://github.com/titaniumnetwork-dev/incognito.git
+```
+
+2. Install all of the dependencies:
+```bash
+deno install --allow-scripts # This flag is here due to sharp, bufferutil and some others
+```
+
+3. Create a `config.toml` file
+```bash
+cp config.example.toml config.toml
+```
+
+4. Modify the `config.toml` file to your liking. See: [config](#config)
+
+5. Build the frontend
+```bash
+deno task build
+```
+
+6. Start the server
+```bash
+deno task start --server full
+```
+
+> [!NOTE]
+> - To see all of the CLI options & usage see: [cli](#cli)
