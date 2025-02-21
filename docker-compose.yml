@@ -14,4 +14,4 @@ services:
           #- DOMAIN=https://incog.works # If you don't have a config.toml file and you want to still use the SEO build, set this variable
         command:
           - "full" # Full is the server type. Change to "standalone" if you want something simpler and lighter.
-          - "--seo" # Enable this line if you wish to use the SEO build. (NOTE: the domain env var MUST be set OR SEO must be enabled in your config.toml)
+          #- "--seo" # Enable this line if you wish to use the SEO build. (NOTE: the domain env var MUST be set OR SEO must be enabled in your config.toml)
