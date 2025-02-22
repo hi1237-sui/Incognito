@@ -1,6 +1,9 @@
 name: Add Binaries to current release.
 
 on:
+  push:
+    tags:
+      - v*
   #workflow_run:
   #  workflows:
   #    - Release
