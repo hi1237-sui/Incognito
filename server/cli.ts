@@ -7,6 +7,7 @@ import { parseArgs } from "jsr:@std/cli";
 import { startServer as HonoServer } from './standalone/standalone.ts';
 import { startServer as FastifyServer } from './full/server.ts';
 import { fromFileUrl } from 'jsr:@std/path';
+import ora, { Ora } from 'npm:ora';
 
 import packageJSON from "../package.json" with { type: 'json' };
 const { version } = packageJSON;
@@ -22,7 +23,9 @@ interface StartArgs extends CLIArgs {
     seo?: boolean;
 };
 
-interface UpgradeArgs extends CLIArgs {};
+interface UpgradeArgs extends CLIArgs {
+    check: boolean;
+};
 
 interface DescriptionType {
     name: string;
@@ -73,8 +76,59 @@ if (args._.length !== 0 && args._[0] !== "upgrade") {
 }
 
 if (args._[0] === "upgrade") {
-    const upgradeCLI = new CLI<UpgradeArgs>({ booleans: [], strings: [] });
-    await upgradeCLI.start(() => {});
+    const upgradeCLI = new CLI<UpgradeArgs>({ booleans: ["check"], strings: [] });
+    const uArgs = upgradeCLI.getArgs();
+
+    const checkForVersion = async (checkFlag: boolean) => {
+        const res = await fetch("https://raw.githubusercontent.com/titaniumnetwork-dev/Incognito/refs/heads/main/package.json");
+        const resp = await res.json();
+        if (resp.version !== version) {
+            checkFlag ? console.log(chalk.greenBright.bold(`A new version is available! Re-run this command without --check to upgrade!`)): '';
+            return resp.version;
+        }
+        else {
+            console.log(chalk.redBright.bold('A new version is not available at this moment, check back later'));
+            Deno.exit();
+        }
+    }
+
+    if (uArgs.help) {
+        upgradeCLI.help([
+            { name: 'check', description: 'Check for a new version' }
+        ]);
+    }
+    
+    if (uArgs.check) {
+        await checkForVersion(true);
+        Deno.exit();
+    }
+
+    const download = async (version: string, spinner: Ora) => {
+        const os = Deno.build.os;
+        const arch = Deno.build.arch;
+        if (os === "aix" || os === "netbsd" || os === "android" || os === "freebsd" || os === "solaris" || os === "illumos") {
+            spinner.fail('Your OS is NOT supported! Exiting...');
+            Deno.exit();
+        }
+        if (os === "darwin") {
+            const res = await fetch(`https://github.com/titaniumnetwork-dev/incognito/releases/download/v${version}/incognito-MacOS${arch === "aarch64" ? '-arm': ''}`);
+            const resp = await res.bytes();
+            await Deno.writeFile(`incognito-MacOS${arch === "aarch64" ? '-arm': ''}`, resp, { mode: 0o775 });
+        }
+        else {
+            const res = await fetch(`https://github.com/titaniumnetwork-dev/incognito/releases/download/v${version}/incognito-${os}${arch === "aarch64" ? '-arm': ''}`);
+            const resp = await res.bytes();
+            await Deno.writeFile(`incognito-${os}${arch === "aarch64" ? '-arm': ''}`, resp, { mode: 0o775 });
+        }
+    };
+    
+    await upgradeCLI.start(async () => {
+        const version = await checkForVersion(false);
+        const spinner = ora('Downloading...').start();
+        await download(version, spinner);
+        spinner.succeed('Upgraded!');
+    });
+
     Deno.exit();
 }
 
