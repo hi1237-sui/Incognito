@@ -63,3 +63,7 @@
 - Change and cleanup docs
 - Docker command cleanup to reflect new changes
 - docker-compose.build.yml no longer exists.
+
+# v1.1.8
+- Add the ability to self update your binary
+- Change the way parts of the CLI look

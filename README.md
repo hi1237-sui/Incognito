@@ -193,7 +193,7 @@ deno task start --server full
 ## CLI
 
 - Incognito has a built in CLI for starting and running
-- Currently, there are only 4 flags.
+- Currently, there are only 4 flags. And 1 extra command
 
 - `--help` - This triggers the help prompt even when other flags are passed.
 - `--server [full|standalone]` - Choose between the full or standalone server. This option is ***required*** otherwise, it will just show the help prompt.
@@ -206,6 +206,9 @@ deno task start --server full
 - `--seo` - Currently the default is to only use the build with no seo enabled. This flag enables the seo build.
     - Domain must be set in the [config](#config)
     - Overrides the enabled option in the [config](#config)
+
+- `upgrade` - Allows for the ability to self-update the binary. Run this to self upgrade
+    - `--check` check for a new version. Tells you if one is available.
 
 ---
 
