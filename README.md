@@ -80,6 +80,13 @@
 
 ---
 
+## Branches
+
+- main - Latest stable branch & production ready
+- dev - all major changes are made here before being merged into main
+
+---
+
 ## Deployment
 
 - Incognito is the easiest proxy to deploy!
